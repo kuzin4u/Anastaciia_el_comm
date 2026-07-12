@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚡ Карта Мародёров: Путь в E-Commerce</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0D0B1A;
+  --bg2: #151226;
+  --card: #1A1730;
+  --card-hover: #211E3A;
+  --parchment: #F5E6C8;
+  --parchment-dark: #D4BA8E;
+  --text: #E8DFD0;
+  --text-dim: #9990A8;
+  --gold: #D4A036;
+  --gold-light: #F5D680;
+  --gold-glow: rgba(212,160,54,0.15);
+  --crimson: #9B1B30;
+  --gryffindor: #AE0001;
+  --slytherin: #1A472A;
+  --ravenclaw: #0E1A40;
+  --hufflepuff: #ECAE14;
+  --green-spell: #44D7B6;
+  --purple-spell: #A78BFA;
+  --blue-spell: #60A5FA;
+  --pink-spell: #F472B6;
+  --border: rgba(212,160,54,0.15);
+  --radius: 14px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Nunito', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Starfield */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1px 1px at 30% 65%, rgba(255,255,255,0.3), transparent),
+    radial-gradient(1px 1px at 55% 15%, rgba(255,255,255,0.35), transparent),
+    radial-gradient(1px 1px at 70% 80%, rgba(255,255,255,0.25), transparent),
+    radial-gradient(1px 1px at 85% 35%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1px 1px at 40% 90%, rgba(255,255,255,0.3), transparent),
+    radial-gradient(1px 1px at 95% 55%, rgba(255,255,255,0.2), transparent),
+    radial-gradient(1px 1px at 20% 45%, rgba(255,255,255,0.3), transparent),
+    radial-gradient(1.5px 1.5px at 50% 50%, rgba(212,160,54,0.4), transparent),
+    radial-gradient(1.5px 1.5px at 75% 25%, rgba(212,160,54,0.3), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.app {
+  position: relative;
+  z-index: 1;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 20px 16px 100px;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 40px 0 28px;
+}
+.hero-bolt { font-size: 52px; display: block; margin-bottom: 8px; filter: drop-shadow(0 0 20px rgba(212,160,54,0.5)); }
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--gold-light);
+  line-height: 1.2;
+  margin-bottom: 6px;
+  text-shadow: 0 0 30px rgba(212,160,54,0.3);
+}
+.hero p {
+  color: var(--text-dim);
+  font-size: 13px;
+  font-style: italic;
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+/* House Points bar */
+.hp-bar {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.hp-bar::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 80px; height: 100%;
+  background: radial-gradient(circle at right, rgba(212,160,54,0.06), transparent);
+  pointer-events: none;
+}
+.hp-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.hp-level {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gold);
+}
+.hp-count {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+.hp-track {
+  height: 6px;
+  background: rgba(212,160,54,0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.hp-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  border-radius: 3px;
+  width: 0%;
+  transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 0 8px rgba(212,160,54,0.4);
+}
+
+/* Navigation */
+.nav-scroll {
+  display: flex;
+  gap: 5px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  margin-bottom: 18px;
+  scrollbar-width: none;
+}
+.nav-scroll::-webkit-scrollbar { display: none; }
+.pill {
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-dim);
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 7px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.25s;
+}
+.pill:hover { border-color: var(--gold); color: var(--gold); }
+.pill.active {
+  background: linear-gradient(135deg, var(--gold), #B8860B);
+  color: var(--bg);
+  border-color: transparent;
+  box-shadow: 0 2px 12px rgba(212,160,54,0.3);
+}
+
+/* Sections */
+.section { display: none; animation: appear 0.35s ease; }
+.section.active { display: block; }
+@keyframes appear {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Cards */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 12px;
+}
+.card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--gold-light);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card p { font-size: 14px; color: var(--text-dim); }
+.card ul { padding-left: 0; list-style: none; margin-top: 8px; }
+.card li {
+  font-size: 13px;
+  color: var(--text-dim);
+  padding: 5px 0;
+  padding-left: 22px;
+  position: relative;
+}
+.card li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-size: 10px;
+  top: 7px;
+}
+
+/* Spell card (expandable) */
+.spell-card { cursor: pointer; }
+.spell-card .spell-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+.spell-card.open .spell-body { max-height: 600px; }
+.spell-arrow {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-left: auto;
+  transition: transform 0.3s;
+}
+.spell-card.open .spell-arrow { transform: rotate(180deg); }
+
+/* Fun fact card */
+.fact-card {
+  background: linear-gradient(135deg, rgba(212,160,54,0.08), rgba(155,27,48,0.05));
+  border: 1px dashed rgba(212,160,54,0.25);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  margin: 16px 0;
+  font-size: 13px;
+  color: var(--parchment-dark);
+}
+.fact-card .fact-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+
+/* Tip */
+.tip {
+  background: rgba(68,215,182,0.08);
+  border: 1px solid rgba(68,215,182,0.15);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  margin: 14px 0;
+  font-size: 13px;
+  color: #A7F3D0;
+}
+.tip strong { color: var(--green-spell); }
+.tip.warn {
+  background: rgba(244,114,182,0.08);
+  border-color: rgba(244,114,182,0.15);
+  color: #FBCFE8;
+}
+.tip.warn strong { color: var(--pink-spell); }
+.tip.gold {
+  background: var(--gold-glow);
+  border-color: rgba(212,160,54,0.2);
+  color: var(--parchment);
+}
+.tip.gold strong { color: var(--gold-light); }
+
+/* Idea cards */
+.idea {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.idea::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--crimson));
+}
+.idea-emoji { font-size: 32px; margin-bottom: 6px; }
+.idea h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--gold-light);
+  margin-bottom: 5px;
+}
+.idea p { font-size: 13px; color: var(--text-dim); }
+
+.stats {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+.stat {
+  flex: 1;
+  background: rgba(255,255,255,0.03);
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+}
+.stat-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--gold-light);
+}
+.stat-lbl {
+  font-size: 10px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-top: 2px;
+}
+
+/* Steps */
+.step {
+  display: flex;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(212,160,54,0.06);
+}
+.step:last-child { border-bottom: none; }
+.step-icon {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  background: rgba(212,160,54,0.1);
+  border: 1px solid rgba(212,160,54,0.2);
+}
+.step h4 { font-size: 14px; font-weight: 700; margin-bottom: 3px; color: var(--text); }
+.step p { font-size: 13px; color: var(--text-dim); }
+
+/* Quests */
+.quest {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(212,160,54,0.06);
+  cursor: pointer;
+  user-select: none;
+}
+.quest:last-child { border-bottom: none; }
+.quest-orb {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid rgba(212,160,54,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s;
+  margin-top: 1px;
+}
+.quest.done .quest-orb {
+  background: radial-gradient(circle, var(--gold-light), var(--gold));
+  border-color: transparent;
+  box-shadow: 0 0 14px rgba(212,160,54,0.5);
+}
+.quest.done .quest-orb::after {
+  content: '⚡';
+  font-size: 12px;
+}
+.quest-info h4 {
+  font-size: 14px;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+.quest.done .quest-info h4 {
+  text-decoration: line-through;
+  color: var(--text-dim);
+}
+.quest-pts {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+/* Finance */
+.fin-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  font-size: 13px;
+  color: var(--text-dim);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.fin-row:last-child { border-bottom: none; }
+.fin-val { font-weight: 700; font-variant-numeric: tabular-nums; }
+.fin-val.g { color: var(--green-spell); }
+.fin-val.r { color: var(--pink-spell); }
+
+/* Achievement */
+.toast {
+  position: fixed;
+  bottom: -90px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--card);
+  border: 1px solid rgba(212,160,54,0.4);
+  border-radius: 16px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.5), 0 0 30px rgba(212,160,54,0.15);
+  z-index: 200;
+  transition: bottom 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  white-space: nowrap;
+}
+.toast.show { bottom: 32px; }
+.toast-icon { font-size: 24px; }
+.toast-text { font-size: 13px; font-weight: 700; color: var(--text); }
+.toast-pts { color: var(--gold); font-size: 12px; font-weight: 700; }
+
+@media (max-width: 380px) {
+  .hero h1 { font-size: 26px; }
+  .stats { gap: 6px; }
+  .stat { padding: 8px 5px; }
+  .stat-val { font-size: 15px; }
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+<div class="hero">
+  <span class="hero-bolt">⚡</span>
+  <h1>Карта Мародёров:<br>Путь в E-Commerce</h1>
+  <p>«I solemnly swear that I am up to no good»<br>Твоё руководство по запуску онлайн-бизнеса из Португалии.</p>
+</div>
+
+<!-- House Points -->
+<div class="hp-bar">
+  <div class="hp-top">
+    <span class="hp-level" id="hp-level">🪄 Курс 1 — Маггл</span>
+    <span class="hp-count" id="hp-count">0 / 50 баллов</span>
+  </div>
+  <div class="hp-track">
+    <div class="hp-fill" id="hp-fill"></div>
+  </div>
+</div>
+
+<!-- Nav -->
+<div class="nav-scroll">
+  <button class="pill active" onclick="go('letter')">📜 Письмо</button>
+  <button class="pill" onclick="go('sorting')">🎩 Распределение</button>
+  <button class="pill" onclick="go('diagon')">🏪 Косой Пер.</button>
+  <button class="pill" onclick="go('spells')">✨ Заклинания</button>
+  <button class="pill" onclick="go('galleons')">💰 Галлеоны</button>
+  <button class="pill" onclick="go('owls')">🦉 С.О.В.</button>
+</div>
+
+<!-- ====== ПИСЬМО ====== -->
+<div id="letter" class="section active">
+
+  <div class="card">
+    <h3>📜 Твоё письмо из Хогвартса</h3>
+    <p>Помнишь, как Гарри получил письмо, которое изменило всё? Считай, что это — твоё. Только вместо Хогвартса — мир онлайн-бизнеса. И поверь, здесь тоже есть магия, только она работает на алгоритмах, дизайне и правильных словах.</p>
+  </div>
+
+  <div class="card">
+    <h3>🗺️ Что это за карта?</h3>
+    <p>Это не учебник. Это — Карта Мародёров для e-commerce. Она покажет все тайные ходы от первого шага до реальных продаж. Как и настоящая Карта — она работает только для тех, кто готов действовать.</p>
+    <div class="tip gold">
+      <strong>Маркетплейс</strong> — это как Косой Переулок, только в интернете. Тысячи магазинов в одном месте, миллионы покупателей приходят сами. Ты не строишь улицу — ты открываешь свою лавку там, где уже кипит жизнь. Amazon, Etsy — это и есть такие «переулки».
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>⚡ Твоя стратегия в трёх заклинаниях</h3>
+    <div class="step">
+      <div class="step-icon">🌙</div>
+      <div><h4>Lumos — Прямо сейчас</h4><p>Зажигаем свет: открываешь магазин на Etsy (можно в 17!). Продаёшь цифровые товары. Вложения = 0. Учишься всему.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-icon">🗝️</div>
+      <div><h4>Alohomora — После 18</h4><p>Открываем двери: регистрируешь свой аккаунт на Amazon.es. Первый физический продукт. Масштаб другой.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-icon">🏰</div>
+      <div><h4>Expecto Patronum — Через полгода+</h4><p>Вызываем Патронуса: несколько площадок, несколько стран, свой бренд. Ты уже предприниматель.</p></div>
+    </div>
+  </div>
+
+  <div class="fact-card">
+    <div class="fact-label">⚡ Секрет Хогвартса</div>
+    Рукопись первой книги о Гарри Поттере была отвергнута 12 издательствами, прежде чем Bloomsbury согласилось её опубликовать. Роулинг была матерью-одиночкой на пособии — и не сдалась. Первый отказ на маркетплейсе (или первый день без продаж) — это нормально. Даже волшебникам нужно время.
+  </div>
+
+  <div class="card">
+    <h3>🌍 Твои тайные суперсилы</h3>
+    <p>В Хогвартсе у Гарри был парселтанг. У тебя есть кое-что не менее мощное:</p>
+    <ul>
+      <li>🇪🇺 <strong>EU-резидент</strong> — доступ ко всем рынкам Европы без барьеров</li>
+      <li>🇧🇷 <strong>Португальский язык</strong> — 260 млн человек, включая Бразилию</li>
+      <li>🇷🇺 <strong>Русский</strong> — видишь тренды, которые ещё не дошли до Европы</li>
+      <li>🇵🇹 <strong>Португалия</strong> — пробка, azulejo, океан — за это иностранцы платят премиум</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>📊 Рынок: цифры (без занудства)</h3>
+    <div class="fin-row"><span>E-commerce Португалии</span><span class="fin-val">€7,1 млрд</span></div>
+    <div class="fin-row"><span>Рост каждый год</span><span class="fin-val g">~10%</span></div>
+    <div class="fin-row"><span>Покупают онлайн</span><span class="fin-val">49% населения</span></div>
+    <div class="fin-row"><span>Amazon Prime в PT</span><span class="fin-val">1,2M+ подписчиков</span></div>
+    <p style="margin-top: 10px; font-size: 12px;">Только половина людей покупает онлайн (в Скандинавии — 80%+). Рынок растёт, и места ещё много.</p>
+  </div>
+</div>
+
+<!-- ====== РАСПРЕДЕЛЕНИЕ (Выбор ниши) ====== -->
+<div id="sorting" class="section">
+
+  <div class="card">
+    <h3>🎩 Церемония Распределения</h3>
+    <p>Распределяющая Шляпа в Хогвартсе выбирает факультет по твоим качествам. Здесь мы выбираем нишу — что именно ты будешь продавать. И так же, как Шляпа учитывает твой характер, мы учитываем твои интересы.</p>
+  </div>
+
+  <div class="card">
+    <h3>🔮 Четыре пробы (4 фильтра ниши)</h3>
+    <div class="step">
+      <div class="step-icon">❤️</div>
+      <div><h4>Проба Гриффиндора: Смелость интереса</h4><p>Тебе нравится это делать? Если скучно — бросишь через неделю. Найди то, что зажигает, как первый полёт на метле.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-icon">📘</div>
+      <div><h4>Проба Когтеврана: Исследование спроса</h4><p>Люди это ищут? Зайди на Etsy, вбей запрос. Если у магазинов тысячи продаж — спрос есть. Если пусто — рынка нет.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-icon">💛</div>
+      <div><h4>Проба Пуффендуя: Честная экономика</h4><p>Можно заработать? Цена минус все расходы = прибыль. Если меньше €2 с продажи — ищи другую нишу.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-icon">🐍</div>
+      <div><h4>Проба Слизерина: Оценка конкуренции</h4><p>Есть ли «воздух»? Если у первых 10 продавцов по 50 000 отзывов — будет как бой с Волдемортом в первом классе. Ищи ниши, где топы имеют 200–2000 отзывов.</p></div>
+    </div>
+  </div>
+
+  <div class="fact-card">
+    <div class="fact-label">⚡ Секрет Хогвартса</div>
+    Последнюю букву «t» в имени Voldemort не нужно произносить — Роулинг подтвердила, что это французское произношение: «Вольдемор». Большинство фанатов узнали об этом спустя годы после выхода книг.
+  </div>
+
+  <div class="idea">
+    <div class="idea-emoji">✨</div>
+    <h4>Нематериальные чары (цифровые товары)</h4>
+    <p>Шаблоны для Canva, планеры, wall art, приглашения, Instagram-шаблоны. Создаёшь один раз — продаётся бесконечно. Как философский камень, только легальный.</p>
+    <div class="stats">
+      <div class="stat"><div class="stat-val">~95%</div><div class="stat-lbl">Маржа</div></div>
+      <div class="stat"><div class="stat-val">€0</div><div class="stat-lbl">Вложения</div></div>
+      <div class="stat"><div class="stat-val">♾️</div><div class="stat-lbl">Масштаб</div></div>
+    </div>
+    <div class="tip" style="margin-top: 12px;"><strong>Лучший вариант для старта.</strong> Canva бесплатный, учиться неделю. Один удачный шаблон может продаваться годами — как будто ты создала заклинание, которое работает само.</div>
+  </div>
+
+  <div class="idea">
+    <div class="idea-emoji">👕</div>
+    <h4>Зелье Превращения (Print on Demand)</h4>
+    <p>Твой дизайн → сервис (Printful, Gelato) печатает его на футболках, кружках, чехлах → отправляет покупателю. Ты не трогаешь товар руками, как настоящий маг.</p>
+    <div class="stats">
+      <div class="stat"><div class="stat-val">~30%</div><div class="stat-lbl">Маржа</div></div>
+      <div class="stat"><div class="stat-val">€0</div><div class="stat-lbl">Вложения</div></div>
+      <div class="stat"><div class="stat-val">EU</div><div class="stat-lbl">Доставка</div></div>
+    </div>
+  </div>
+
+  <div class="idea">
+    <div class="idea-emoji">🧵</div>
+    <h4>Ручная магия (хендмейд)</h4>
+    <p>Украшения, свечи, мыло, керамика с португальскими мотивами. Azulejo-дизайн, пробковые изделия — иностранцы готовы платить за «кусочек Португалии», как туристы в Хогсмиде за сливочное пиво.</p>
+    <div class="stats">
+      <div class="stat"><div class="stat-val">60-80%</div><div class="stat-lbl">Маржа</div></div>
+      <div class="stat"><div class="stat-val">€50+</div><div class="stat-lbl">Старт</div></div>
+      <div class="stat"><div class="stat-val">🌍</div><div class="stat-lbl">Уник.</div></div>
+    </div>
+  </div>
+
+  <div class="tip gold">
+    <strong>Совет от Дамблдора:</strong> Лучше всего комбинировать. Цифровые товары на Etsy (быстрый старт, нулевой риск) + готовить физический продукт для Amazon к 18-летию. Два Крестража... то есть два источника дохода.
+  </div>
+
+  <div class="fact-card">
+    <div class="fact-label">⚡ Секрет Хогвартса</div>
+    Фред и Джордж Уизли родились 1 апреля — в День дурака. А после смерти Фреда Джордж больше никогда не смог вызвать Патронуса. Братья Уизли начали свой бизнес (магазин «Всевозможные волшебные вредилки») будучи ещё студентами — прямо как ты начинаешь свой.
+  </div>
+</div>
+
+<!-- ====== КОСОЙ ПЕРЕУЛОК (Площадки) ====== -->
+<div id="diagon" class="section">
+
+  <div class="card">
+    <h3>🏪 Косой Переулок: твои площадки</h3>
+    <p>Когда Гарри впервые попал на Косой Переулок — он обалдел от количества магазинов. В e-commerce маркетплейсы — это и есть твои «переулки». Вот где можно открыть лавку.</p>
+  </div>
+
+  <div class="tip warn">
+    <strong>⚠️ Заклятие Возраста:</strong> Amazon, Worten, Fnac — все требуют 18+. Не пытайся обойти (подставить чужие документы, соврать). Аккаунт заблокируют <em>навсегда</em>, включая твой адрес. Это как нарушение Статута Секретности — последствия серьёзные.
+  </div>
+
+  <div class="idea">
+    <div class="idea-emoji">🧶</div>
+    <h4>Лавка Олливандера → Etsy</h4>
+    <p>Единственная крупная площадка, где можно продавать в 17 лет (через аккаунт родителя). 96 млн покупателей по всему миру. Фокус на уникальном и handmade — как раз для творческих людей.</p>
+    <div class="stats">
+      <div class="stat"><div class="stat-val">13+</div><div class="stat-lbl">Возраст</div></div>
+      <div class="stat"><div class="stat-val">6,5%</div><div class="stat-lbl">Комиссия</div></div>
+      <div class="stat"><div class="stat-val">96M</div><div class="stat-lbl">Покупатели</div></div>
+    </div>
+    <div class="tip" style="margin-top: 12px;"><strong>Как это работает:</strong> Мама или папа создают аккаунт на своё имя (банк, email — их). Ты ведёшь бизнес: товары, фото, общение с покупателями. Когда исполнится 18 — переоформите на тебя.</div>
+  </div>
+
+  <div class="idea">
+    <div class="idea-emoji">📦</div>
+    <h4>Министерство Магии → Amazon</h4>
+    <p>Крупнейший маркетплейс планеты. Из Португалии продаёшь через Amazon.es (обслуживает и PT). FBA = Amazon хранит, пакует, доставляет. Тебе нужно только придумать товар и отправить на склад.</p>
+    <div class="stats">
+      <div class="stat"><div class="stat-val">18+</div><div class="stat-lbl">Возраст</div></div>
+      <div class="stat"><div class="stat-val">7-15%</div><div class="stat-lbl">Комиссия</div></div>
+      <div class="stat"><div class="stat-val">1,2M</div><div class="stat-lbl">Prime PT</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>📮 Совиная почта: логистика в PT</h3>
+    <ul>
+      <li><strong>CTT (Correios de Portugal)</strong> — главный перевозчик, как совиная почта Хогвартса</li>
+      <li><strong>MB WAY + Multibanco</strong> — так платят португальцы (маркетплейсы сами обрабатывают)</li>
+      <li>Для Etsy: листинги на <strong>английском</strong> (основная аудитория)</li>
+      <li>Для Amazon.es: на <strong>испанском</strong> (Portuguese → Spanish не так сложно!)</li>
+      <li>Доставка на Азоры/Мадейру стоит ×2 — учитывай в ценах</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>🏛️ Гринготтс: налоги (не страшно)</h3>
+    <p>Пока оборот до €14 500/год — работаешь по режиму <strong>Artigo 53</strong> (без НДС). Регистрация бесплатна, делается онлайн через Portal das Finanças. Для старта на Etsy — более чем достаточно. Аккаунт на родителе → налоги на родителе → в декабре переоформите.</p>
+  </div>
+
+  <div class="fact-card">
+    <div class="fact-label">⚡ Секрет Хогвартса</div>
+    Имя «Дамблдор» — это староанглийское слово, означающее «шмель». Роулинг выбрала его, потому что представляла, как директор ходит по Хогвартсу и мурлычет что-то себе под нос. А красный цвет в мире Гарри Поттера — всегда символизирует добро (мантии Гриффиндора, волосы Уизли), тогда как зелёный — тёмную магию (Авада Кедавра, Слизерин, василиск).
+  </div>
+</div>
+
+<!-- ====== ЗАКЛИНАНИЯ (Навыки) ====== -->
+<div id="spells" class="section">
+
+  <div class="card">
+    <h3>✨ Книга заклинаний</h3>
+    <p>В Хогвартсе учат заклинания постепенно — от Люмос до Патронуса. Здесь так же. Каждое «заклинание» — это навык, который ты осваиваешь. Не пытайся выучить всё сразу — Гермиона тоже не за один день стала лучшей на курсе.</p>
+  </div>
+
+  <div class="card spell-card" onclick="this.classList.toggle('open')">
+    <h3>🔎 Revelio — SEO маркетплейсов <span class="spell-arrow">▼</span></h3>
+    <p>Заклинание обнаружения: как сделать так, чтобы покупатели НАХОДИЛИ твои товары</p>
+    <div class="spell-body">
+      <p style="margin-top: 10px;">SEO = Search Engine Optimization. Простыми словами: ты подбираешь правильные слова (теги, заголовки), чтобы когда кто-то ищет «minimalist planner 2027» — твой товар был в топе.</p>
+      <ul>
+        <li><strong>eRank.com</strong> (бесплатно) — показывает, что люди ищут на Etsy</li>
+        <li>Заголовок = самые важные слова первыми</li>
+        <li>Используй все 13 тегов на Etsy — каждый!</li>
+        <li>Изучи теги у топ-продавцов в своей нише</li>
+      </ul>
+      <div class="tip"><strong>Правило Гермионы:</strong> Описывай товар словами покупателя, а не своими. Не «boho macramé textile art piece», а «wall hanging for living room boho decor». Думай как тот, кто ИЩЕТ.</div>
+    </div>
+  </div>
+
+  <div class="card spell-card" onclick="this.classList.toggle('open')">
+    <h3>📸 Aparecium — Фотография <span class="spell-arrow">▼</span></h3>
+    <p>Заклинание проявления: 80% решения о покупке — по картинке</p>
+    <div class="spell-body">
+      <ul>
+        <li>Камера не нужна — хватит смартфона</li>
+        <li>Снимай при дневном свете у окна (никаких жёлтых ламп!)</li>
+        <li>Белый / нейтральный фон для главного фото</li>
+        <li>Покажи товар «в жизни» (планер на столе с кофе, браслет на руке)</li>
+        <li>Для цифровых товаров — мокапы (в Canva есть готовые)</li>
+        <li>Минимум 5 фото на листинг</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card spell-card" onclick="this.classList.toggle('open')">
+    <h3>✍️ Persuasio — Описания <span class="spell-arrow">▼</span></h3>
+    <p>Заклинание убеждения: текст, который превращает просмотры в покупки</p>
+    <div class="spell-body">
+      <ul>
+        <li><strong>Первые 2 строки</strong> — самое важное (видно без клика «ещё»)</li>
+        <li>Чётко: <strong>что это</strong> → <strong>для кого</strong> → <strong>что включено</strong> → <strong>как использовать</strong></li>
+        <li>Не бойся длинных описаний — но делай их структурированными</li>
+      </ul>
+      <div class="tip"><strong>Лайфхак:</strong> Зайди на 5 лучших листингов в своей нише. Посмотри структуру, длину, слова. Не копируй — но используй как шаблон. Даже Гарри учился на чужом опыте (привет, учебник Принца-Полукровки).</div>
+    </div>
+  </div>
+
+  <div class="card spell-card" onclick="this.classList.toggle('open')">
+    <h3>🎨 Geminio — Дизайн в Canva <span class="spell-arrow">▼</span></h3>
+    <p>Заклинание копирования: бесплатный инструмент, который заменит Photoshop</p>
+    <div class="spell-body">
+      <ul>
+        <li><strong>Canva.com</strong> — бесплатно, в браузере</li>
+        <li>Тысячи готовых шаблонов для адаптации</li>
+        <li>Идеально для: планеров, чек-листов, wall art, Instagram-шаблонов, приглашений</li>
+        <li>YouTube: «Canva tutorial for Etsy digital products» — десятки видео</li>
+        <li>Canva Pro (€12/мес) — позже, на старте не нужен</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>📚 Библиотека (бесплатные ресурсы)</h3>
+    <ul>
+      <li><strong>Etsy Seller Handbook</strong> — официальный гайд от Etsy</li>
+      <li><strong>YouTube:</strong> Hannah Renée (Etsy digital), Wholesale Ted (Amazon)</li>
+      <li><strong>eRank.com</strong> — бесплатный SEO-анализатор</li>
+      <li><strong>Google Digital Garage</strong> — бесплатный сертификат по маркетингу</li>
+      <li><strong>Canva Design School</strong> — курсы по дизайну</li>
+      <li><strong>Amazon Seller University</strong> — на вырост</li>
+    </ul>
+  </div>
+
+  <div class="fact-card">
+    <div class="fact-label">⚡ Секрет Хогвартса</div>
+    Роулинг написала последнюю главу «Даров Смерти» (ту самую, «19 лет спустя») ещё в 1990-м — за 7 лет до выхода первой книги. Она знала финал с самого начала. В бизнесе это называется «vision» — и это именно то, что мы делаем сейчас: строим карту, прежде чем отправиться в путь.
+  </div>
+</div>
+
+<!-- ====== ГАЛЛЕОНЫ (Деньги) ====== -->
+<div id="galleons" class="section">
+
+  <div class="card">
+    <h3>💰 Сейф в Гринготтсе: экономика</h3>
+    <p>Когда Гарри впервые открыл свой сейф — он обалдел. Твой первый заработок тоже будет ощущаться волшебно. Но давай будем честны (Дамблдор бы одобрил): первый месяц — скорее всего ноль. Это нормально.</p>
+  </div>
+
+  <div class="card">
+    <h3>📊 Пример: шаблоны в Canva на Etsy</h3>
+    <div style="margin-top: 8px;">
+      <div class="fin-row"><span>Цена шаблона</span><span class="fin-val">€5,00</span></div>
+      <div class="fin-row"><span>Комиссия Etsy (~6,5% + €0,18)</span><span class="fin-val r">−€0,51</span></div>
+      <div class="fin-row"><span>Себестоимость</span><span class="fin-val g">€0 (цифровой!)</span></div>
+      <div class="fin-row" style="border-top: 1px solid rgba(212,160,54,0.15); padding-top: 8px;"><span><strong>Чистая прибыль</strong></span><span class="fin-val g"><strong>€4,49 (89,8%)</strong></span></div>
+    </div>
+    <div style="margin-top: 14px; padding: 12px; background: rgba(212,160,54,0.05); border-radius: 10px;">
+      <div class="fin-row"><span>Месяц 1–2 (1–5 продаж)</span><span>€5–22</span></div>
+      <div class="fin-row"><span>Месяц 3–4 (20–30 продаж)</span><span class="fin-val g">€90–135</span></div>
+      <div class="fin-row"><span>Месяц 6+ (60–100 продаж)</span><span class="fin-val g">€270–450</span></div>
+      <div class="fin-row"><span>Через год (150+ продаж/мес)</span><span class="fin-val g">€670+</span></div>
+    </div>
+  </div>
+
+  <div class="tip warn">
+    <strong>Честный разговор (как у Дамблдора с Гарри):</strong> Эти цифры — для тех, кто работает каждый день: добавляет товары, оптимизирует теги, отвечает покупателям. Если загрузить 3 шаблона и уйти в Запретный Лес — заработаешь ноль. E-commerce — это не Феликс Фелицис, это ежедневная практика.
+  </div>
+
+  <div class="card">
+    <h3>💡 Куда тратить первые галлеоны</h3>
+    <ul>
+      <li><strong>70% — реинвестируй</strong> (Etsy Ads, Canva Pro, материалы) — как Фред и Джордж вложили выигрыш Гарри в магазин</li>
+      <li><strong>20% — копи</strong> (на запуск Amazon после 18)</li>
+      <li><strong>10% — на себя</strong> (заслужила, это твоё сливочное пиво)</li>
+    </ul>
+  </div>
+
+  <div class="fact-card">
+    <div class="fact-label">⚡ Секрет Хогвартса</div>
+    Роулинг стала первым автором в истории, ставшим миллиардером благодаря книгам. Но затем потеряла этот статус... потому что слишком много жертвовала на благотворительность. А франшиза «Волшебный мир» сейчас оценивается примерно в $25 миллиардов. Кстати, на Etsy товары с HP-тематикой — одна из самых популярных ниш (персонализированные журналы, снитчи-серьги, семейные часы Уизли).
+  </div>
+</div>
+
+<!-- ====== С.О.В. (Квесты) ====== -->
+<div id="owls" class="section">
+
+  <div class="card">
+    <h3>🦉 Стандартные Общеколдовские Выпускные</h3>
+    <p>Как С.О.В. в Хогвартсе, только по e-commerce. Выполняй задания по порядку — каждое даёт баллы факультету. Отмечай то, что сделала. Цель: набрать «Превосходно» по всем предметам.</p>
+  </div>
+
+  <div class="card">
+    <h3>🌙 Курс 1 — Заклинание Люмос (Разведка)</h3>
+    <div id="q1">
+      <div class="quest" onclick="cq(this,10)"><div class="quest-orb"></div><div class="quest-info"><h4>Проведи 30 минут на Etsy</h4><p style="font-size:12px; color:var(--text-dim);">Просто смотри: что продают, что нравится. Запиши 5 идей в тетрадь.</p><div class="quest-pts">+10 баллов</div></div></div>
+      <div class="quest" onclick="cq(this,10)"><div class="quest-orb"></div><div class="quest-info"><h4>Найди 5 магазинов в интересной нише</h4><p style="font-size:12px; color:var(--text-dim);">Запиши: название, сколько продаж, цены, что делают круто.</p><div class="quest-pts">+10 баллов</div></div></div>
+      <div class="quest" onclick="cq(this,15)"><div class="quest-orb"></div><div class="quest-info"><h4>Зарегистрируйся на eRank.com</h4><p style="font-size:12px; color:var(--text-dim);">Вбей 3 запроса из своей ниши. Посмотри объём и конкуренцию.</p><div class="quest-pts">+15 баллов</div></div></div>
+      <div class="quest" onclick="cq(this,15)"><div class="quest-orb"></div><div class="quest-info"><h4>Посмотри 2 видео про Etsy на YouTube</h4><p style="font-size:12px; color:var(--text-dim);">Поиск: «How to sell digital products on Etsy 2026»</p><div class="quest-pts">+15 баллов</div></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>⚗️ Курс 2 — Зельеварение (Создание)</h3>
+    <div id="q2">
+      <div class="quest" onclick="cq(this,15)"><div class="quest-orb"></div><div class="quest-info"><h4>Пройди 2 урока в Canva Design School</h4><p style="font-size:12px; color:var(--text-dim);">Научись создавать шаблон с нуля. Это твой «котёл».</p><div class="quest-pts">+15 баллов</div></div></div>
+      <div class="quest" onclick="cq(this,20)"><div class="quest-orb"></div><div class="quest-info"><h4>Создай первый продукт!</h4><p style="font-size:12px; color:var(--text-dim);">Один шаблон, один дизайн, одно изделие. Главное — сделать.</p><div class="quest-pts">+20 баллов</div></div></div>
+      <div class="quest" onclick="cq(this,15)"><div class="quest-orb"></div><div class="quest-info"><h4>Сделай мокап или фото</h4><p style="font-size:12px; color:var(--text-dim);">Canva мокапы для цифровых. Фото у окна для физических.</p><div class="quest-pts">+15 баллов</div></div></div>
+      <div class="quest" onclick="cq(this,20)"><div class="quest-orb"></div><div class="quest-info"><h4>Создай ещё 4 продукта (всего 5)</h4><p style="font-size:12px; color:var(--text-dim);">Минимум для запуска. Как 5 ингредиентов базового зелья.</p><div class="quest-pts">+20 баллов</div></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🚪 Курс 3 — Алохомора (Запуск)</h3>
+    <div id="q3">
+      <div class="quest" onclick="cq(this,20)"><div class="quest-orb"></div><div class="quest-info"><h4>Открой магазин на Etsy!</h4><p style="font-size:12px; color:var(--text-dim);">Вместе с родителем: аккаунт, название, баннер, описание.</p><div class="quest-pts">+20 баллов</div></div></div>
+      <div class="quest" onclick="cq(this,15)"><div class="quest-orb"></div><div class="quest-info"><h4>Загрузи 5 листингов с SEO-тегами</h4><p style="font-size:12px; color:var(--text-dim);">Описания + фото/мокапы + все 13 тегов.</p><div class="quest-pts">+15 баллов</div></div></div>
+      <div class="quest" onclick="cq(this,25)"><div class="quest-orb"></div><div class="quest-info"><h4>⚡ Первая продажа!</h4><p style="font-size:12px; color:var(--text-dim);">Может занять от 3 дней до 3 недель. Терпение, юный маг.</p><div class="quest-pts">+25 баллов</div></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🔥 Курс 4 — Патронус (Рост)</h3>
+    <div id="q4">
+      <div class="quest" onclick="cq(this,20)"><div class="quest-orb"></div><div class="quest-info"><h4>Доведи ассортимент до 20 товаров</h4><p style="font-size:12px; color:var(--text-dim);">Больше товаров = больше шансов быть найденной.</p><div class="quest-pts">+20 баллов</div></div></div>
+      <div class="quest" onclick="cq(this,25)"><div class="quest-orb"></div><div class="quest-info"><h4>Получи первый отзыв ⭐⭐⭐⭐⭐</h4><p style="font-size:12px; color:var(--text-dim);">Отзывы — это репутация. Как рекомендательное письмо от Макгонагалл.</p><div class="quest-pts">+25 баллов</div></div></div>
+      <div class="quest" onclick="cq(this,15)"><div class="quest-orb"></div><div class="quest-info"><h4>Создай Instagram для магазина</h4><p style="font-size:12px; color:var(--text-dim);">3 поста + 1 Reel. За кулисами, процесс, готовый продукт.</p><div class="quest-pts">+15 баллов</div></div></div>
+      <div class="quest" onclick="cq(this,25)"><div class="quest-orb"></div><div class="quest-info"><h4>Запусти Etsy Ads (€1/день)</h4><p style="font-size:12px; color:var(--text-dim);">Минимальный бюджет, максимум обучения.</p><div class="quest-pts">+25 баллов</div></div></div>
+      <div class="quest" onclick="cq(this,30)"><div class="quest-orb"></div><div class="quest-info"><h4>🏆 Заработай первые €100!</h4><p style="font-size:12px; color:var(--text-dim);">Когда это случится — ты больше не маггл. Ты предприниматель.</p><div class="quest-pts">+30 баллов</div></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>👑 Т.Р.И.Т.О.Н. — Amazon (после 18)</h3>
+    <div id="q5">
+      <div class="quest" onclick="cq(this,30)"><div class="quest-orb"></div><div class="quest-info"><h4>Зарегистрируй свой аккаунт Amazon.es</h4><p style="font-size:12px; color:var(--text-dim);">Твой аккаунт, твоё имя, твой бизнес. Совершеннолетие!</p><div class="quest-pts">+30 баллов</div></div></div>
+      <div class="quest" onclick="cq(this,30)"><div class="quest-orb"></div><div class="quest-info"><h4>Запусти первый продукт через Amazon FBA</h4><p style="font-size:12px; color:var(--text-dim);">К этому моменту ты уже знаешь, что делаешь. Уровень ТРИТОН пройден.</p><div class="quest-pts">+30 баллов</div></div></div>
+    </div>
+  </div>
+
+  <div class="fact-card">
+    <div class="fact-label">⚡ Последний секрет</div>
+    Дэниел Рэдклифф сломал около 80 волшебных палочек за время съёмок — он использовал их как барабанные палочки. Руперт Гринт получил роль Рона, прислав рэп о том, почему именно он должен сыграть этого персонажа. А Робин Уильямс и Рози О'Доннелл предлагали сняться бесплатно, но Роулинг настояла на полностью британском/ирландском касте. Упорство + творчество = результат. Это формула и для маркетплейсов.
+  </div>
+</div>
+
+</div><!-- /app -->
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <span class="toast-icon" id="t-icon">⚡</span>
+  <div>
+    <div class="toast-text" id="t-text">Заклинание освоено!</div>
+    <div class="toast-pts" id="t-pts">+10 баллов</div>
+  </div>
+</div>
+
+<script>
+let pts = 0;
+const years = [
+  { p: 0,   name: 'Маггл', icon: '🪄' },
+  { p: 50,  name: 'Первокурсник', icon: '🌙' },
+  { p: 120, name: 'Второй курс', icon: '⚗️' },
+  { p: 200, name: 'Третий курс', icon: '🔮' },
+  { p: 300, name: 'Четвёртый курс', icon: '🔥' },
+  { p: 400, name: 'Пятый курс (С.О.В.)', icon: '🦉' },
+  { p: 500, name: 'Шестой курс', icon: '📖' },
+  { p: 600, name: 'Седьмой курс (Т.Р.И.Т.О.Н.)', icon: '👑' }
+];
+const achs = [
+  { p: 10,  text: 'Lumos! Первый свет!', icon: '🌙' },
+  { p: 50,  text: 'Принят в Хогвартс!', icon: '📜' },
+  { p: 120, text: 'Первое зелье сварено!', icon: '⚗️' },
+  { p: 200, text: 'Алохомора! Магазин открыт!', icon: '🚪' },
+  { p: 300, text: 'Первый Патронус! (Первая продажа)', icon: '✨' },
+  { p: 400, text: 'Бизнес растёт! О.W.L. сдан!', icon: '🦉' },
+  { p: 500, text: 'Уровень Принца-Полукровки', icon: '📖' },
+  { p: 600, text: 'Мастер Даров Смерти 👑', icon: '⚡' }
+];
+let shown = new Set();
+
+try {
+  const s = JSON.parse(localStorage.getItem('hp_quests') || '{}');
+  pts = s.pts || 0;
+  (s.done || []).forEach(i => {
+    const q = document.querySelectorAll('.quest');
+    if (q[i]) q[i].classList.add('done');
+  });
+  shown = new Set(s.shown || []);
+} catch(e) {}
+
+function save() {
+  const d = [];
+  document.querySelectorAll('.quest').forEach((q, i) => {
+    if (q.classList.contains('done')) d.push(i);
+  });
+  try { localStorage.setItem('hp_quests', JSON.stringify({ pts, done: d, shown: [...shown] })); } catch(e) {}
+}
+
+function upBar() {
+  const cur = years.filter(y => y.p <= pts).pop();
+  const ni = years.indexOf(cur) + 1;
+  const nxt = years[ni] || { p: cur.p + 100 };
+  const pct = ((pts - cur.p) / (nxt.p - cur.p)) * 100;
+  document.getElementById('hp-level').textContent = `${cur.icon} Курс ${years.indexOf(cur) + 1} — ${cur.name}`;
+  document.getElementById('hp-count').textContent = `${pts} / ${nxt.p} баллов`;
+  document.getElementById('hp-fill').style.width = Math.min(pct, 100) + '%';
+}
+
+function showToast(text, icon, p) {
+  const t = document.getElementById('toast');
+  document.getElementById('t-text').textContent = text;
+  document.getElementById('t-icon').textContent = icon;
+  document.getElementById('t-pts').textContent = `+${p} баллов`;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+function cq(el, p) {
+  if (el.classList.contains('done')) {
+    el.classList.remove('done');
+    pts = Math.max(0, pts - p);
+  } else {
+    el.classList.add('done');
+    pts += p;
+    for (const a of achs) {
+      if (pts >= a.p && !shown.has(a.p)) {
+        shown.add(a.p);
+        setTimeout(() => showToast(a.text, a.icon, a.p), 300);
+        break;
+      }
+    }
+  }
+  upBar();
+  save();
+}
+
+function go(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({ top: 180, behavior: 'smooth' });
+}
+
+upBar();
+</script>
+</body>
+</html>
