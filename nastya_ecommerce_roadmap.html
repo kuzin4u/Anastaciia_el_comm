@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Commerce Roadmap — Настя, Португалия</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FAF8F5;
+  --card: #FFFFFF;
+  --text: #1A1A2E;
+  --muted: #6B7280;
+  --accent: #2563EB;
+  --accent-light: #EFF6FF;
+  --green: #059669;
+  --green-light: #ECFDF5;
+  --amber: #D97706;
+  --amber-light: #FFFBEB;
+  --red: #DC2626;
+  --red-light: #FEF2F2;
+  --purple: #7C3AED;
+  --purple-light: #F5F3FF;
+  --border: #E5E7EB;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-lg: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 48px;
+  padding-bottom: 32px;
+  border-bottom: 2px solid var(--border);
+}
+
+.header-label {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-light);
+  padding: 6px 14px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.header .subtitle {
+  font-size: 17px;
+  color: var(--muted);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Navigation */
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 40px;
+  padding: 16px;
+  background: var(--card);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 8px;
+  z-index: 100;
+}
+
+.nav-btn {
+  flex: 1;
+  min-width: 120px;
+  padding: 10px 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.nav-btn:hover { border-color: var(--accent); color: var(--accent); }
+.nav-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+/* Sections */
+.section {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.section.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.section-intro {
+  font-size: 16px;
+  color: var(--muted);
+  margin-bottom: 28px;
+  line-height: 1.7;
+}
+
+/* Cards */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+
+.card h3 {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card p, .card li {
+  font-size: 15px;
+  color: #374151;
+  line-height: 1.7;
+}
+
+.card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.card ul li {
+  padding: 6px 0 6px 24px;
+  position: relative;
+}
+
+.card ul li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Badge */
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 12px;
+  letter-spacing: 0.5px;
+}
+
+.badge-green { background: var(--green-light); color: var(--green); }
+.badge-amber { background: var(--amber-light); color: var(--amber); }
+.badge-red { background: var(--red-light); color: var(--red); }
+.badge-purple { background: var(--purple-light); color: var(--purple); }
+.badge-blue { background: var(--accent-light); color: var(--accent); }
+
+/* Comparison table */
+.comp-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.comp-table th {
+  background: #F9FAFB;
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+
+.comp-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.comp-table tr:last-child td { border-bottom: none; }
+.comp-table .rec { background: var(--green-light); }
+
+/* Phase blocks */
+.phase {
+  border-left: 4px solid var(--accent);
+  padding-left: 20px;
+  margin-bottom: 28px;
+}
+
+.phase.phase-2 { border-color: var(--green); }
+.phase.phase-3 { border-color: var(--purple); }
+.phase.phase-4 { border-color: var(--amber); }
+
+.phase-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.phase-num {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phase.phase-2 .phase-num { background: var(--green); }
+.phase.phase-3 .phase-num { background: var(--purple); }
+.phase.phase-4 .phase-num { background: var(--amber); }
+
+.phase h3 {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.phase-meta {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.phase p, .phase li {
+  font-size: 15px;
+  color: #374151;
+  line-height: 1.7;
+}
+
+/* Callout */
+.callout {
+  padding: 20px 24px;
+  border-radius: 10px;
+  margin: 20px 0;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.callout-blue { background: var(--accent-light); border-left: 4px solid var(--accent); }
+.callout-green { background: var(--green-light); border-left: 4px solid var(--green); }
+.callout-amber { background: var(--amber-light); border-left: 4px solid var(--amber); }
+.callout-red { background: var(--red-light); border-left: 4px solid var(--red); }
+
+.callout strong { display: block; margin-bottom: 4px; }
+
+/* Niche grid */
+.niche-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.niche-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.niche-card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-lg);
+}
+
+.niche-card h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.niche-card p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.niche-card .niche-tags {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+/* Checklist */
+.checklist { list-style: none; padding: 0; }
+.checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #F3F4F6;
+  font-size: 15px;
+}
+.checklist li:last-child { border-bottom: none; }
+
+.check-box {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border);
+  border-radius: 5px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.check-box.checked {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+.check-box.checked::after { content: '✓'; font-size: 13px; font-weight: 700; }
+
+/* Footer */
+.doc-footer {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+@media (max-width: 640px) {
+  .container { padding: 24px 16px 60px; }
+  .header h1 { font-size: 26px; }
+  .section-title { font-size: 22px; }
+  .nav-btn { min-width: 90px; font-size: 12px; padding: 8px 4px; }
+  .niche-grid { grid-template-columns: 1fr; }
+  .comp-table { font-size: 12px; }
+  .comp-table td, .comp-table th { padding: 8px 10px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <div class="header-label">Roadmap 2026–2027</div>
+    <h1>Старт в e-commerce: от навыков до первых продаж</h1>
+    <p class="subtitle">Пошаговое руководство для Насти. Возраст 17 лет, Португалия. Как войти на рынок маркетплейсов — легально, последовательно и с пониманием экономики.</p>
+  </div>
+
+  <div class="nav" id="nav">
+    <button class="nav-btn active" onclick="showSection('legal')">Юридика</button>
+    <button class="nav-btn" onclick="showSection('platforms')">Площадки</button>
+    <button class="nav-btn" onclick="showSection('niches')">Ниши</button>
+    <button class="nav-btn" onclick="showSection('skills')">Навыки</button>
+    <button class="nav-btn" onclick="showSection('roadmap')">Roadmap</button>
+    <button class="nav-btn" onclick="showSection('economics')">Экономика</button>
+    <button class="nav-btn" onclick="showSection('checklist')">Чеклист</button>
+  </div>
+
+  <!-- ===== SECTION 1: LEGAL ===== -->
+  <div class="section active" id="sec-legal">
+    <h2 class="section-title">Юридические рамки</h2>
+    <p class="section-intro">Главное ограничение — возраст. Но это не стоп-фактор, а просто маршрутная развилка. Вот конкретные правила по каждой площадке и стране.</p>
+
+    <div class="card">
+      <h3>🔒 Amazon — строго с 18 лет</h3>
+      <p>Amazon требует достижения 18 лет для регистрации продавца. Это жёсткое правило: при верификации проверяют паспорт, и аккаунт на несовершеннолетнего мгновенно блокируется.</p>
+      <p style="margin-top:10px"><strong>Легальный обход:</strong> родитель или законный представитель Насти в Португалии регистрирует аккаунт на своё имя. Все контракты, налоговые документы и финансы — на взрослом. Настя фактически ведёт бизнес, но юридическим владельцем является родитель. В декабре 2026 (18 лет) аккаунт переоформляется.</p>
+      <div class="callout callout-red" style="margin-top:14px">
+        <strong>⚠️ Чего нельзя делать</strong>
+        Регистрировать аккаунт на чужие данные без их ведома. Использовать поддельные документы. Пытаться создать аккаунт от своего имени до 18 — Amazon это видит и может заблокировать навсегда (включая адрес, телефон и данные карты).
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>✅ Etsy — можно с 13 лет</h3>
+      <p>Etsy официально разрешает продавать подросткам 13–17 лет при соблюдении условий:</p>
+      <ul>
+        <li>Аккаунт регистрирует родитель/опекун на своё имя</li>
+        <li>Все финансовые данные (банк, карта, PayPal) — на имя взрослого</li>
+        <li>Взрослый указан как владелец магазина в разделе «About»</li>
+        <li>Email аккаунта принадлежит родителю</li>
+        <li>Родитель несёт полную ответственность за все действия на аккаунте</li>
+      </ul>
+      <div class="callout callout-green" style="margin-top:14px">
+        <strong>💡 Рекомендация</strong>
+        Etsy — идеальная стартовая площадка. Низкий порог входа, легальная работа для подростков, и навыки (SEO, фото, ценообразование, работа с клиентами) напрямую переносятся на Amazon.
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🇵🇹 Португальская специфика</h3>
+      <p>Совершеннолетие в Португалии — 18 лет. До этого возраста Настя не может самостоятельно заключать коммерческие контракты. Но есть возможность работать через родителей:</p>
+      <ul>
+        <li><strong>NIF (Número de Identificação Fiscal)</strong> — налоговый номер, необходим для любой коммерческой деятельности. У несовершеннолетних NIF есть, но для бизнес-регистрации нужен взрослый</li>
+        <li><strong>Empresário em Nome Individual</strong> — индивидуальное предпринимательство. Регистрируется родителем. После 18 лет можно переоформить</li>
+        <li><strong>e-Fatura + SAF-T PT</strong> — обязательная налоговая отчётность для продавцов в Португалии с первого евро выручки</li>
+        <li><strong>MB WAY / Multibanco</strong> — доминирующие платёжные методы в стране, важно учитывать при прямых продажах</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>📅 Таймлайн: что когда становится доступно</h3>
+      <table class="comp-table">
+        <tr><th>Возраст</th><th>Что открывается</th><th>Площадки</th></tr>
+        <tr class="rec"><td><strong>17 лет (сейчас)</strong></td><td>Продажи через родительский аккаунт</td><td>Etsy, Vinted, Facebook Marketplace, OLX</td></tr>
+        <tr><td><strong>18 лет (дек. 2026)</strong></td><td>Собственный аккаунт продавца, ИП</td><td>Amazon, eBay, Zalando, Worten + все выше</td></tr>
+        <tr><td><strong>18+ (2027)</strong></td><td>FBA, cross-border, бренд-регистрация</td><td>Amazon Pan-EU, собственный Shopify</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 2: PLATFORMS ===== -->
+  <div class="section" id="sec-platforms">
+    <h2 class="section-title">Выбор площадки</h2>
+    <p class="section-intro">Португалия — растущий e-commerce рынок (€8+ млрд GMV, +4% онлайн-покупателей в 2025). Своего Amazon.pt нет, но Amazon.es уже лидер по продажам в Португалии. Вот сравнение ключевых площадок.</p>
+
+    <table class="comp-table">
+      <tr>
+        <th>Площадка</th>
+        <th>Вход с 17 лет</th>
+        <th>Тип товаров</th>
+        <th>Комиссия</th>
+        <th>Для старта</th>
+      </tr>
+      <tr class="rec">
+        <td><strong>Etsy</strong></td>
+        <td><span class="badge badge-green">Да</span></td>
+        <td>Хендмейд, винтаж, цифровые</td>
+        <td>6.5% + €0.20/листинг</td>
+        <td>⭐⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+        <td><strong>Vinted</strong></td>
+        <td><span class="badge badge-green">Да*</span></td>
+        <td>Одежда, аксессуары б/у</td>
+        <td>Бесплатно для продавца</td>
+        <td>⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+        <td><strong>Amazon.es</strong></td>
+        <td><span class="badge badge-red">Нет</span></td>
+        <td>Всё</td>
+        <td>7–15% + €39/мес (Pro)</td>
+        <td>⭐⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+        <td><strong>OLX Portugal</strong></td>
+        <td><span class="badge badge-green">Да</span></td>
+        <td>Б/у, локальные продажи</td>
+        <td>Бесплатно / пакеты</td>
+        <td>⭐⭐⭐</td>
+      </tr>
+      <tr>
+        <td><strong>eBay</strong></td>
+        <td><span class="badge badge-red">Нет</span></td>
+        <td>Всё</td>
+        <td>~12–13%</td>
+        <td>⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+        <td><strong>Worten MP</strong></td>
+        <td><span class="badge badge-red">Нет</span></td>
+        <td>Электроника, быт</td>
+        <td>8–15%</td>
+        <td>⭐⭐⭐</td>
+      </tr>
+    </table>
+    <p style="font-size:13px;color:var(--muted);">* Vinted — с согласия родителей в ряде стран ЕС. Проверить текущие условия при регистрации.</p>
+
+    <div class="callout callout-blue" style="margin-top:20px;">
+      <strong>📌 Рекомендуемая стратегия входа</strong>
+      <strong>Сейчас (до 18):</strong> Etsy как основная площадка + Vinted/OLX для первых продаж и набора опыта.<br>
+      <strong>После 18 (дек. 2026):</strong> Amazon.es (FBA) как основной канал масштабирования. Etsy сохраняется для уникальных/цифровых товаров.<br>
+      <strong>2027+:</strong> Pan-European FBA (один склад → доставка по всему ЕС), возможно собственный Shopify.
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <h3>🇪🇸 Почему Amazon.es, а не .de или .com?</h3>
+      <ul>
+        <li>Amazon.es — лидер онлайн-продаж в Португалии, 1.2 млн+ португальских подписчиков Prime</li>
+        <li>Язык: португальский и испанский близки, легче адаптировать листинги</li>
+        <li>Логистика: склады FBA в Испании ближе всего к Португалии (короткие сроки доставки)</li>
+        <li>Pan-EU FBA позволит с одного испанского склада продавать в Германию, Францию, Италию</li>
+        <li>Отдельного amazon.pt пока нет — по планам запуск в 2026+, что создаёт окно возможностей</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 3: NICHES ===== -->
+  <div class="section" id="sec-niches">
+    <h2 class="section-title">Подбор ниши</h2>
+    <p class="section-intro">Выбор ниши — ключевое решение. Для подростка-новичка важно: низкий стартовый капитал, возможность делать/отбирать товар самостоятельно, и потенциал для масштабирования на Amazon позже.</p>
+
+    <div class="card">
+      <h3>🧭 Метод отбора ниши (5 фильтров)</h3>
+      <ul>
+        <li><strong>Личный интерес</strong> — Настя будет заниматься этим каждый день. Если тема не зажигает, выгорание через 2 месяца</li>
+        <li><strong>Стартовый капитал ≤ €100–300</strong> — первый запуск не должен требовать больших вложений</li>
+        <li><strong>Маржа ≥ 40%</strong> — после всех комиссий, материалов и доставки должно оставаться минимум 40%</li>
+        <li><strong>Масштабируемость</strong> — можно ли со временем перейти от ручного производства к закупке/OEM?</li>
+        <li><strong>Уникальность/дифференциация</strong> — чем этот товар отличается от тысяч аналогов?</li>
+      </ul>
+    </div>
+
+    <h3 style="margin: 20px 0 12px; font-size: 17px;">Перспективные направления для старта на Etsy из Португалии</h3>
+
+    <div class="niche-grid">
+      <div class="niche-card">
+        <h4>🎨 Цифровые товары</h4>
+        <p>Планеры, шаблоны для Canva/Notion, принты для печати, SVG-файлы. Нулевая себестоимость после создания, бесконечная масштабируемость.</p>
+        <div class="niche-tags">
+          <span class="badge badge-green">Капитал: €0</span>
+          <span class="badge badge-blue">Маржа: 85–95%</span>
+        </div>
+      </div>
+
+      <div class="niche-card">
+        <h4>🕯 Свечи / ароматы</h4>
+        <p>Соевые свечи, восковые плавки, ароматические саше. Популярная ниша на Etsy, хорошо масштабируется.</p>
+        <div class="niche-tags">
+          <span class="badge badge-amber">Капитал: €100–200</span>
+          <span class="badge badge-blue">Маржа: 50–65%</span>
+        </div>
+      </div>
+
+      <div class="niche-card">
+        <h4>📿 Бижутерия / аксессуары</h4>
+        <p>Минималистичные украшения, бисер, полимерная глина. Португалия ассоциируется с ремесленной традицией — можно использовать как позиционирование.</p>
+        <div class="niche-tags">
+          <span class="badge badge-amber">Капитал: €50–150</span>
+          <span class="badge badge-blue">Маржа: 55–70%</span>
+        </div>
+      </div>
+
+      <div class="niche-card">
+        <h4>🧶 Вязаные / текстильные изделия</h4>
+        <p>Макраме, вязаные аксессуары, тканевые сумки. Тренд на sustainability и handmade в Европе устойчив.</p>
+        <div class="niche-tags">
+          <span class="badge badge-amber">Капитал: €50–100</span>
+          <span class="badge badge-blue">Маржа: 45–60%</span>
+        </div>
+      </div>
+
+      <div class="niche-card">
+        <h4>🖼 Print-on-Demand</h4>
+        <p>Дизайн футболок, кружек, постеров через Printful/Printify. Нет складских запасов — печать по запросу.</p>
+        <div class="niche-tags">
+          <span class="badge badge-green">Капитал: €0–50</span>
+          <span class="badge badge-blue">Маржа: 25–40%</span>
+        </div>
+      </div>
+
+      <div class="niche-card">
+        <h4>🫧 Косметика / мыло</h4>
+        <p>Натуральное мыло, бомбочки для ванны, бальзамы. Внимание: требуется сертификация в ЕС (CPSR).</p>
+        <div class="niche-tags">
+          <span class="badge badge-red">Капитал: €200–400</span>
+          <span class="badge badge-blue">Маржа: 50–65%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-amber">
+      <strong>⚡ Для перехода на Amazon позже</strong>
+      Лучше всего масштабируются цифровые товары (Amazon KDP — книги, планеры) и физические товары, которые можно перевести на OEM-производство (свечи, косметика, аксессуары). Чистый хендмейд сложнее масштабировать, но формирует сильный бренд.
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <h3>🔬 Как Настя может провести исследование ниши самостоятельно</h3>
+      <ul>
+        <li><strong>Etsy search:</strong> вбить ключевые слова → посмотреть количество результатов и средние цены → отфильтровать «Star Sellers» → изучить их отзывы</li>
+        <li><strong>eRank.com</strong> (бесплатный план) — аналитика Etsy: тренды поиска, конкуренция, идеи тегов</li>
+        <li><strong>Google Trends</strong> — сезонность спроса (важно для свечей, подарков и т.д.)</li>
+        <li><strong>Pinterest Trends</strong> — визуальные тренды, особенно для декора и аксессуаров</li>
+        <li><strong>Amazon Best Sellers</strong> — что продаётся на amazon.es прямо сейчас (для будущего перехода)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 4: SKILLS ===== -->
+  <div class="section" id="sec-skills">
+    <h2 class="section-title">Навыки для освоения</h2>
+    <p class="section-intro">E-commerce — это набор конкретных компетенций. Вот что Насте стоит осваивать параллельно с первыми продажами, от самого важного к дополнительному.</p>
+
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-num">1</div>
+        <h3>Основы (первые 2 месяца)</h3>
+      </div>
+      <div class="phase-meta">Критически важно — без этого нет бизнеса</div>
+      <ul style="list-style:none;padding:0;">
+        <li style="padding:8px 0;"><strong>Фотография товара</strong> — смартфона достаточно. Белый фон, естественный свет, 5+ ракурсов. Правило: фото продаёт, описание подтверждает</li>
+        <li style="padding:8px 0;"><strong>Копирайтинг для карточек</strong> — заголовок (SEO + привлечение), описание (выгоды, не характеристики), теги. На Etsy заголовок ≤ 140 символов, 13 тегов по 20 символов</li>
+        <li style="padding:8px 0;"><strong>Ценообразование</strong> — формула: себестоимость + комиссия площадки + доставка + упаковка + маржа (≥40%). Обязательно считать в электронной таблице</li>
+        <li style="padding:8px 0;"><strong>Клиентский сервис</strong> — ответы на вопросы < 24ч, отслеживание отправлений, вежливое решение проблем. На Etsy рейтинг ответов критически важен</li>
+      </ul>
+    </div>
+
+    <div class="phase phase-2">
+      <div class="phase-header">
+        <div class="phase-num">2</div>
+        <h3>Продвинутые (месяцы 3–6)</h3>
+      </div>
+      <div class="phase-meta">Рост и оптимизация</div>
+      <ul style="list-style:none;padding:0;">
+        <li style="padding:8px 0;"><strong>SEO маркетплейса</strong> — ключевые слова, позиции в поиске, A/B тестирование заголовков. Инструмент: eRank, Marmalead</li>
+        <li style="padding:8px 0;"><strong>Аналитика продаж</strong> — конверсия (просмотры → покупки), средний чек, стоимость привлечения. Etsy Stats встроены в дашборд</li>
+        <li style="padding:8px 0;"><strong>Социальные сети</strong> — Instagram и Pinterest как каналы трафика. Контент-план, Stories, Reels. Для подростковой аудитории — TikTok</li>
+        <li style="padding:8px 0;"><strong>Упаковка и branding</strong> — фирменный стиль, вкладыши с благодарностью, eco-упаковка (тренд в ЕС)</li>
+      </ul>
+    </div>
+
+    <div class="phase phase-3">
+      <div class="phase-header">
+        <div class="phase-num">3</div>
+        <h3>Для масштабирования (после 18, на Amazon)</h3>
+      </div>
+      <div class="phase-meta">Подготовка к переходу на крупную площадку</div>
+      <ul style="list-style:none;padding:0;">
+        <li style="padding:8px 0;"><strong>Amazon Seller Central</strong> — интерфейс, PPC-реклама, Buy Box, отзывы, A+ контент</li>
+        <li style="padding:8px 0;"><strong>FBA-логистика</strong> — подготовка товара к отправке на склад Amazon, FNSKU, штрихкоды</li>
+        <li style="padding:8px 0;"><strong>Sourcing</strong> — поиск поставщиков (Alibaba, 1688), работа с образцами, контроль качества</li>
+        <li style="padding:8px 0;"><strong>Финансовый учёт</strong> — P&L, юнит-экономика, налоги (NIF, e-Fatura, VAT в ЕС)</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>📚 Бесплатные ресурсы для обучения</h3>
+      <ul>
+        <li><strong>Etsy Seller Handbook</strong> — официальные гайды Etsy (на английском)</li>
+        <li><strong>Amazon Seller University</strong> — бесплатные видеокурсы от Amazon</li>
+        <li><strong>YouTube:</strong> каналы «Wholesale Ted», «Hayley Eicher» (Etsy), «Junglescout» (Amazon)</li>
+        <li><strong>Canva</strong> — бесплатный дизайн инструмент для фото, инфографики, брендинга</li>
+        <li><strong>Google Skillshop</strong> — основы цифрового маркетинга (сертификат)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 5: ROADMAP ===== -->
+  <div class="section" id="sec-roadmap">
+    <h2 class="section-title">Пошаговый Roadmap</h2>
+    <p class="section-intro">Конкретный план действий, разбитый по периодам. Каждый шаг готовит фундамент для следующего.</p>
+
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-num">1</div>
+        <h3>Июль — Сентябрь 2026: Подготовка и первые продажи</h3>
+      </div>
+      <div class="phase-meta">Цель: первые 10 продаж на Etsy, понимание юнит-экономики</div>
+      <div class="card" style="margin:10px 0">
+        <p><strong>Неделя 1–2: Исследование</strong></p>
+        <ul>
+          <li>Определить 2–3 потенциальные ниши на основе интересов Насти</li>
+          <li>Исследовать каждую через eRank: объём поиска, конкуренция, средняя цена</li>
+          <li>Изучить 10 топ-продавцов в каждой нише: фото, описания, цены, отзывы</li>
+          <li>Выбрать одну нишу на основе данных + личного интереса</li>
+        </ul>
+      </div>
+      <div class="card" style="margin:10px 0">
+        <p><strong>Неделя 3–4: Запуск магазина</strong></p>
+        <ul>
+          <li>Родитель регистрирует аккаунт Etsy на своё имя</li>
+          <li>Выбрать название магазина (брендовое, запоминающееся, без привязки к одному товару)</li>
+          <li>Создать 5–10 первых листингов с качественными фото и SEO-оптимизированными описаниями</li>
+          <li>Настроить способы доставки (CTT Correios для Португалии, международная)</li>
+          <li>Установить политику возвратов</li>
+        </ul>
+      </div>
+      <div class="card" style="margin:10px 0">
+        <p><strong>Месяц 2–3: Первые продажи</strong></p>
+        <ul>
+          <li>Промотировать магазин через Instagram/Pinterest (создать аккаунты бренда)</li>
+          <li>Активно использовать все 13 тегов на каждом листинге, тестировать разные</li>
+          <li>Попросить первых покупателей оставить отзыв (вкладыш в заказ)</li>
+          <li>Анализировать статистику: какие товары просматривают, какие покупают</li>
+          <li>Добавлять новые товары регулярно (минимум 2/неделю)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase phase-2">
+      <div class="phase-header">
+        <div class="phase-num">2</div>
+        <h3>Октябрь — Декабрь 2026: Рост + подготовка к Amazon</h3>
+      </div>
+      <div class="phase-meta">Цель: €300+/мес на Etsy, 50+ отзывов, готовность к Amazon</div>
+      <div class="card" style="margin:10px 0">
+        <ul>
+          <li><strong>Октябрь–ноябрь:</strong> рождественский сезон — максимальная активность. Подготовить сезонные товары/подарочные наборы за 6–8 недель до пика</li>
+          <li><strong>Ноябрь:</strong> Black Friday / Cyber Monday — запустить первые Etsy Ads (бюджет €1–3/день для тестирования)</li>
+          <li><strong>Декабрь:</strong> Насте исполняется 18 → зарегистрировать собственный аккаунт Amazon Seller Central на amazon.es</li>
+          <li>Параллельно: изучить Amazon Seller University, подготовить первые карточки товаров</li>
+          <li>Оформить ИП (Empresário em Nome Individual) или начать процесс</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase phase-3">
+      <div class="phase-header">
+        <div class="phase-num">3</div>
+        <h3>Январь — Июнь 2027: Запуск на Amazon</h3>
+      </div>
+      <div class="phase-meta">Цель: первые продажи на Amazon.es, двухканальная стратегия</div>
+      <div class="card" style="margin:10px 0">
+        <ul>
+          <li>Выбрать товар для Amazon (может отличаться от Etsy — более массовый, стандартизированный)</li>
+          <li>Заказать тестовую партию (50–100 единиц) для проверки спроса</li>
+          <li>Запустить FBA: отправить товар на склад Amazon в Испании</li>
+          <li>Настроить PPC-рекламу (начать с auto-кампании €5–10/день)</li>
+          <li>Собрать первые 15–25 отзывов (через программу Amazon Vine или органически)</li>
+          <li>Etsy продолжает работать параллельно как второй канал</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase phase-4">
+      <div class="phase-header">
+        <div class="phase-num">4</div>
+        <h3>Второе полугодие 2027+: Масштабирование</h3>
+      </div>
+      <div class="phase-meta">Цель: €1000+/мес, Pan-EU, расширение ассортимента</div>
+      <div class="card" style="margin:10px 0">
+        <ul>
+          <li>Подключить Pan-European FBA (из одного склада → доставка по 5+ странам ЕС)</li>
+          <li>Зарегистрировать торговую марку → Amazon Brand Registry → A+ контент</li>
+          <li>Расширить линейку до 5–10 SKU</li>
+          <li>Рассмотреть OEM-производство (Alibaba) для снижения себестоимости</li>
+          <li>Подключить дополнительные каналы: Shopify (свой сайт), Worten Marketplace</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 6: ECONOMICS ===== -->
+  <div class="section" id="sec-economics">
+    <h2 class="section-title">Экономика и финансы</h2>
+    <p class="section-intro">Понимание юнит-экономики — то, что отличает бизнес от хобби. Вот модели для Etsy и Amazon, чтобы Настя считала до того, как тратить.</p>
+
+    <div class="card">
+      <h3>📊 Юнит-экономика Etsy (пример: свеча ручной работы)</h3>
+      <table class="comp-table">
+        <tr><th>Статья</th><th>Сумма</th><th>% от цены</th></tr>
+        <tr><td>Цена продажи</td><td><strong>€18.00</strong></td><td>100%</td></tr>
+        <tr><td>Себестоимость (воск, фитиль, ёмкость, аромат)</td><td>−€3.50</td><td>19%</td></tr>
+        <tr><td>Упаковка + доставочная коробка</td><td>−€1.50</td><td>8%</td></tr>
+        <tr><td>Комиссия Etsy (6.5% + €0.20)</td><td>−€1.37</td><td>8%</td></tr>
+        <tr><td>Обработка платежа (3% + €0.25)</td><td>−€0.79</td><td>4%</td></tr>
+        <tr><td>Доставка (CTT внутри Португалии)</td><td>−€3.50</td><td>19%</td></tr>
+        <tr class="rec"><td><strong>Прибыль на единицу</strong></td><td><strong>€7.34</strong></td><td><strong>41%</strong></td></tr>
+      </table>
+      <p style="font-size:13px;color:var(--muted);margin-top:8px">При 30 продажах/месяц = €220 прибыли. Это реалистичный результат для первых 3–4 месяцев.</p>
+    </div>
+
+    <div class="card">
+      <h3>📊 Юнит-экономика Amazon FBA (пример: товар private label)</h3>
+      <table class="comp-table">
+        <tr><th>Статья</th><th>Сумма</th><th>% от цены</th></tr>
+        <tr><td>Цена продажи</td><td><strong>€19.99</strong></td><td>100%</td></tr>
+        <tr><td>Себестоимость (OEM + доставка на склад)</td><td>−€4.00</td><td>20%</td></tr>
+        <tr><td>FBA fee (pick, pack, ship)</td><td>−€3.50</td><td>18%</td></tr>
+        <tr><td>Referral fee (15%)</td><td>−€3.00</td><td>15%</td></tr>
+        <tr><td>PPC-реклама (ACOS ~30%)</td><td>−€2.00</td><td>10%</td></tr>
+        <tr><td>Возвраты и потери (~5%)</td><td>−€1.00</td><td>5%</td></tr>
+        <tr class="rec"><td><strong>Прибыль на единицу</strong></td><td><strong>€6.49</strong></td><td><strong>32%</strong></td></tr>
+      </table>
+      <p style="font-size:13px;color:var(--muted);margin-top:8px">При 100 продажах/месяц = €649 прибыли. Но стартовые инвестиции: €500–1500 (закупка первой партии + доставка на склад).</p>
+    </div>
+
+    <div class="card">
+      <h3>💰 Стартовый бюджет по сценариям</h3>
+      <table class="comp-table">
+        <tr><th>Сценарий</th><th>Бюджет</th><th>Что входит</th></tr>
+        <tr class="rec"><td><strong>Минимум (цифровые товары)</strong></td><td>€0–30</td><td>Canva Pro (€12/мес), возможно платный шрифт</td></tr>
+        <tr><td><strong>Хендмейд (старт)</strong></td><td>€100–200</td><td>Материалы, упаковка, пробные отправки</td></tr>
+        <tr><td><strong>Amazon FBA (после 18)</strong></td><td>€500–1500</td><td>Первая закупка, доставка на склад, подписка Pro</td></tr>
+      </table>
+    </div>
+
+    <div class="callout callout-blue">
+      <strong>🎯 Золотое правило стартового капитала</strong>
+      Не инвестировать больше, чем готов потерять. Первая партия — это обучение, а не зарабатывание. Лучше начать с €50 и понять механику, чем вложить €1000 и паниковать от отсутствия продаж.
+    </div>
+  </div>
+
+  <!-- ===== SECTION 7: CHECKLIST ===== -->
+  <div class="section" id="sec-checklist">
+    <h2 class="section-title">Чеклист запуска</h2>
+    <p class="section-intro">Интерактивный список — можно отмечать выполненное. Прогресс сохраняется в браузере.</p>
+
+    <div class="card">
+      <h3>📋 Фаза 1: Подготовка (июль 2026)</h3>
+      <ul class="checklist" id="checklist-1">
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Определить нишу на основе интересов + исследования</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Изучить 10 топ-конкурентов в выбранной нише на Etsy</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Просчитать юнит-экономику в таблице (себестоимость + все комиссии)</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Придумать название бренда/магазина (проверить доступность)</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Родитель регистрирует Etsy-аккаунт</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Настроить платёжные данные (банковский счёт родителя)</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>📋 Фаза 2: Запуск магазина (август 2026)</h3>
+      <ul class="checklist" id="checklist-2">
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Создать/закупить первые 5–10 единиц товара</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Сфотографировать товар (мин. 5 фото на каждый, белый фон + lifestyle)</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Написать SEO-оптимизированные заголовки и описания</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Заполнить все 13 тегов на каждом листинге</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Настроить варианты доставки и сроки</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Опубликовать листинги и проверить, как они выглядят</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Создать Instagram-аккаунт бренда</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>📋 Фаза 3: Первые продажи (сентябрь–ноябрь 2026)</h3>
+      <ul class="checklist" id="checklist-3">
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Получить первую продажу</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Отправить заказ в течение заявленного срока</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Получить первый положительный отзыв</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Достичь 10 продаж</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Проанализировать конверсию (просмотры vs покупки)</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Оптимизировать слабые листинги на основе данных</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Запустить тестовую рекламу Etsy Ads (€1–2/день)</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Подготовить сезонную коллекцию к Рождеству</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>📋 Фаза 4: Переход на Amazon (декабрь 2026 — март 2027)</h3>
+      <ul class="checklist" id="checklist-4">
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Оформить ИП (Empresário em Nome Individual) или выбрать юр. форму</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Зарегистрировать аккаунт Amazon Seller Central (amazon.es)</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Пройти верификацию Amazon (паспорт, адрес, банк)</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Пройти Amazon Seller University (минимум модули для начинающих)</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Выбрать товар для Amazon (исследование через Jungle Scout / Helium10)</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Заказать тестовую партию (50–100 шт.)</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Подготовить листинг (A+ контент, фото, описание)</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Отправить товар на FBA-склад</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Запустить PPC-рекламу</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Первая продажа на Amazon! 🎉</span></li>
+      </ul>
+    </div>
+
+    <div id="progress-bar" style="margin-top:20px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;box-shadow:var(--shadow);">
+      <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+        <span style="font-weight:600;font-size:14px;">Общий прогресс</span>
+        <span id="progress-text" style="font-size:14px;color:var(--accent);font-weight:600;">0 / 31</span>
+      </div>
+      <div style="height:8px;background:#E5E7EB;border-radius:4px;overflow:hidden;">
+        <div id="progress-fill" style="height:100%;background:var(--accent);border-radius:4px;width:0%;transition:width 0.3s;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-footer">
+    <p>Подготовлено для Насти · Июль 2026 · Обновляется по мере прогресса</p>
+    <p style="margin-top:4px">Данные о рынке Португалии актуальны на середину 2026 года</p>
+  </div>
+
+</div>
+
+<script>
+// Navigation
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({ top: document.getElementById('nav').offsetTop - 10, behavior: 'smooth' });
+}
+
+// Checklist
+function toggleCheck(el) {
+  el.classList.toggle('checked');
+  updateProgress();
+  saveState();
+}
+
+function updateProgress() {
+  const total = document.querySelectorAll('.check-box').length;
+  const checked = document.querySelectorAll('.check-box.checked').length;
+  document.getElementById('progress-text').textContent = checked + ' / ' + total;
+  document.getElementById('progress-fill').style.width = (checked / total * 100) + '%';
+}
+
+function saveState() {
+  const states = [];
+  document.querySelectorAll('.check-box').forEach((cb, i) => {
+    states[i] = cb.classList.contains('checked');
+  });
+  try { localStorage.setItem('nastya_checklist', JSON.stringify(states)); } catch(e) {}
+}
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem('nastya_checklist');
+    if (saved) {
+      const states = JSON.parse(saved);
+      document.querySelectorAll('.check-box').forEach((cb, i) => {
+        if (states[i]) cb.classList.add('checked');
+      });
+    }
+  } catch(e) {}
+  updateProgress();
+}
+
+loadState();
+</script>
+
+</body>
+</html>
